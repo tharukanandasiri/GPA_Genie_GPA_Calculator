@@ -10,8 +10,10 @@ class InputScreen extends StatefulWidget {
 }
 
 class _InputScreenState extends State<InputScreen> {
+  // List to store course details
   final List<Course> _courses =
       List.generate(6, (_) => Course(name: '', credit: 0, grade: 'A+'));
+  // List of grades
   final List<String> _grades = [
     'A+',
     'A',
@@ -26,6 +28,8 @@ class _InputScreenState extends State<InputScreen> {
     'D',
     'E'
   ];
+
+  // GPA Map
   final Map<String, double> _gradePoints = {
     'A+': 4.0,
     'A': 4.0,
@@ -43,8 +47,11 @@ class _InputScreenState extends State<InputScreen> {
 
   final List<TextEditingController> _creditControllers =
       List.generate(6, (_) => TextEditingController());
+
+  // Validity of credit input
   final List<bool> _isCreditValid = List.filled(6, true);
 
+  // Function to calculate GPA
   void _calculateGPA() {
     double totalPoints = 0;
     int totalCredits = 0;
@@ -56,6 +63,7 @@ class _InputScreenState extends State<InputScreen> {
 
     double gpa = totalCredits > 0 ? totalPoints / totalCredits : 0;
 
+    // Navigate to the result screen with the calculated GPA
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -64,6 +72,7 @@ class _InputScreenState extends State<InputScreen> {
     );
   }
 
+  // Function to clear all input fields
   void _clearFields() {
     setState(() {
       for (var controller in _creditControllers) {
@@ -118,6 +127,7 @@ class _InputScreenState extends State<InputScreen> {
               ),
             ),
             const SizedBox(height: 20),
+            // Buttons for calculating GPA and clearing fields
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -131,6 +141,7 @@ class _InputScreenState extends State<InputScreen> {
     );
   }
 
+  // Widget to display table headers
   Widget _buildTableHeader() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -149,6 +160,7 @@ class _InputScreenState extends State<InputScreen> {
     );
   }
 
+  // Widget to create a row for each course input
   Widget _buildCourseRow(int index) {
     return Card(
       color: Colors.white,
@@ -159,6 +171,7 @@ class _InputScreenState extends State<InputScreen> {
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
         child: Row(
           children: [
+            // Course name input field
             Expanded(
               flex: 2,
               child: TextField(
@@ -173,6 +186,7 @@ class _InputScreenState extends State<InputScreen> {
               ),
             ),
             const SizedBox(width: 10),
+            // Credit input field
             Expanded(
               child: TextField(
                 controller: _creditControllers[index],
@@ -199,6 +213,7 @@ class _InputScreenState extends State<InputScreen> {
               ),
             ),
             const SizedBox(width: 10),
+            // Grade dropdown selection
             Expanded(
               child: DropdownButtonFormField(
                 value: _courses[index].grade,
@@ -221,6 +236,7 @@ class _InputScreenState extends State<InputScreen> {
     );
   }
 
+  // Button widget
   Widget _buildButton(String text, Color color, VoidCallback onPressed) {
     return ElevatedButton(
       onPressed: onPressed,

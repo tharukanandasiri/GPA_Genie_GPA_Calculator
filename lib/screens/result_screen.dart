@@ -5,6 +5,7 @@ class ResultScreen extends StatelessWidget {
 
   const ResultScreen({super.key, required this.gpa});
 
+  // Function to return a motivational message based on the GPA value.
   String getMotivationMessage(double gpa) {
     if (gpa >= 3.5) {
       return "🌟 Amazing work! Keep aiming high! 🚀";
@@ -68,7 +69,8 @@ class ResultScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 12),
                     Text(
-                      gpa.toStringAsFixed(2),
+                      gpa.toStringAsFixed(
+                          2), // Displays GPA with 2 decimal places.
                       style: const TextStyle(
                           fontSize: 50,
                           fontWeight: FontWeight.bold,
